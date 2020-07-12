@@ -4,7 +4,7 @@
 https://qiita.com/kekekekenta/items/a009f3d8b925a3edebd7
 
 ## Initialize
-Initialize the .NET development secret store by opening your CLI in the directory that contains GroupsAndUsers.csproj and running the following command.
+Initialize the .NET development secret store by opening your CLI in the directory that contains GraphMessagesSample.csproj and running the following command.
 ```
 dotnet user-secrets init
 ```
