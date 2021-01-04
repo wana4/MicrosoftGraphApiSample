@@ -82,5 +82,76 @@ namespace GraphMessagesSample
                 return null;
             }
         }
+        public static async Task<IEnumerable<Calendar>> GetCalendarAsync(string userId)
+        {
+            try
+            {
+                List<Calendar> dirobjects = new List<Calendar>();
+                var resultPage = await graphClient.Users[userId].Calendars.Request().GetAsync();
+                while (true)
+                {
+                    dirobjects.AddRange(resultPage.CurrentPage);
+                    if (resultPage.NextPageRequest == null)
+                    {
+                        break;
+                    }
+                    resultPage = resultPage.NextPageRequest.GetAsync().Result;
+                }
+                return dirobjects;
+            }
+            catch (ServiceException ex)
+            {
+                Console.WriteLine($"Error getting events: {ex.Message}");
+                return null;
+            }
+        }
+
+        public static async Task<IEnumerable<Event>> GetEventsAsync(string userId, string calendarId)
+        {
+            try
+            {
+                List<Event> dirobjects = new List<Event>();
+                var resultPage = await graphClient.Users[userId].Calendars[calendarId].Events.Request().GetAsync();
+                while (true)
+                {
+                    dirobjects.AddRange(resultPage.CurrentPage);
+                    if (resultPage.NextPageRequest == null)
+                    {
+                        break;
+                    }
+                    resultPage = resultPage.NextPageRequest.GetAsync().Result;
+                }
+                return dirobjects;
+            }
+            catch (ServiceException ex)
+            {
+                Console.WriteLine($"Error getting events: {ex.Message}");
+                return null;
+            }
+        }
+
+        public static async Task<IEnumerable<Contact>> GetContactsAsync(string userId)
+        {
+            try
+            {
+                List<Contact> dirobjects = new List<Contact>();
+                var resultPage = await graphClient.Users[userId].Contacts.Request().GetAsync();
+                while (true)
+                {
+                    dirobjects.AddRange(resultPage.CurrentPage);
+                    if (resultPage.NextPageRequest == null)
+                    {
+                        break;
+                    }
+                    resultPage = resultPage.NextPageRequest.GetAsync().Result;
+                }
+                return dirobjects;
+            }
+            catch (ServiceException ex)
+            {
+                Console.WriteLine($"Error getting events: {ex.Message}");
+                return null;
+            }
+        }
     }
 }
